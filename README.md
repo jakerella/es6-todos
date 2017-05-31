@@ -33,7 +33,6 @@ You very well may have built a TODO app in the past, so what's so different abou
 * [Classes](http://2ality.com/2015/02/es6-classes-final.html)
 * [Constants and block-scoped variable declarations](http://wesbos.com/let-vs-const/)
 * [Default function parameters](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Default_parameters)
-* [Fetch](https://fetch.spec.whatwg.org/) instead of XHR _(Note that this is **not** part of the ES6 specification!)_
 * Internationalization ([Currency](http://es6-features.org/#CurrencyFormatting) and [Dates](http://es6-features.org/#DateTimeFormatting), plus more)
 * [Object destructuring](https://ponyfoo.com/articles/es6-destructuring-in-depth)
 * [Object literal shorthands](http://www.benmvp.com/learning-es6-enhanced-object-literals/)
