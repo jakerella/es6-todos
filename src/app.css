@@ -1,0 +1,162 @@
+body {
+  background-color: #f5f5f5;
+  font-family: "Roboto Condensed", Helvetica, Arial, sans-serif;
+}
+
+h1 {
+  font-size: 4em;
+  color: #ead8d8;
+  font-weight: normal;
+  text-align: center;
+}
+
+main {
+  width: 45%;
+  margin: 2em auto 0 auto;
+  box-shadow: 0px 9px 17px #ccc;
+  margin-bottom: 5em;
+  background-color: #fff;
+  border: 1px solid #ddd;
+}
+
+.hide {
+  display: none;
+}
+
+@media screen and (max-width: 30em) {
+  main {
+    width: 90%;
+  }
+}
+@media screen and (min-width: 30.1em) and (max-width: 50em) {
+  main {
+    width: 70%;
+  }
+}
+.new-todo {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 1em 2em;
+  border: none;
+  border-bottom: 2px solid #eee;
+  outline: none;
+}
+
+.due-date {
+  width: 100%;
+  font-size: 0.8em;
+  color: #666;
+  display: flex;
+  align-items: center;
+}
+.due-date * {
+  display: block;
+  width: 50%;
+  box-sizing: border-box;
+  margin: 0;
+}
+.due-date label {
+  text-align: right;
+  padding-right: 1em;
+}
+.due-date input {
+  border: 1px solid #eee;
+  border-top: 0;
+  border-right: 0;
+  padding: 0.1em 0.5em;
+}
+
+::-webkit-input-placeholder {
+  font-style: italic;
+}
+
+::-moz-input-placeholder {
+  font-style: italic;
+}
+
+.items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 1.2em;
+  color: #666;
+}
+.items li {
+  padding: 0.5em;
+  border-bottom: 1px solid #eee;
+}
+.items li:hover .delete {
+  display: block;
+}
+.items p {
+  display: inline;
+  padding-left: 1em;
+}
+.items time {
+  color: #999;
+}
+.items time::before {
+  content: ' | ';
+}
+
+.items .delete {
+  display: none;
+  float: right;
+  background: none;
+  border: none;
+  color: #af5c5f;
+}
+.items .delete:hover {
+  border-radius: 50%;
+  width: 1.5em;
+  height: 1.5em;
+  padding: 0;
+  background: #af5c5f;
+  color: #fff;
+}
+
+.items .completed {
+  color: #999;
+}
+.items button.check {
+  border: 1px solid #eee;
+  border-radius: 50%;
+  width: 1.5em;
+  height: 1.5em;
+  background: none;
+  outline: none;
+}
+.items button.check::after {
+  content: '✓';
+  color: #eee;
+  font-weight: bold;
+}
+.items .completed button.check {
+  border-color: #5bc0ad;
+  top: 0;
+}
+.items .completed button.check::after {
+  content: '✓';
+  color: #5bc0ad;
+  font-weight: bold;
+}
+.items .completed p {
+  text-decoration: line-through;
+}
+.items button {
+  cursor: pointer;
+}
+.items button.check:hover {
+  border-color: #5bc0ad;
+}
+.items button.check:hover::after {
+  color: #5bc0ad;
+}
+
+footer {
+  font-size: 0.8em;
+  color: #999;
+  padding: 0;
+  padding-top: 1.1em;
+  min-height: 2.5em;
+}
