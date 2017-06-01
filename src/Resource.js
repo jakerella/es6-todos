@@ -33,7 +33,6 @@ window.Resource = class Resource {
     set createDate(noop) {}
 
     save() {
-
         // TOPIC: Promises (https://developers.google.com/web/fundamentals/getting-started/primers/promises)
         return new Promise((resolve, reject) => {
 
@@ -50,6 +49,11 @@ window.Resource = class Resource {
                 }
             }
 
+            let error = this.validate();
+            if (error) {
+                return reject(error);
+            }
+
             resources[this._id] = this.serialize();
 
             localStorage.setItem(this._resourceName, JSON.stringify(resources));
@@ -57,16 +61,25 @@ window.Resource = class Resource {
         });
     }
 
+    validate() {
+        if (!this._id) {
+            return new Error('Unable to save without ID');
+        }
+        if (!this._createDate) {
+            return new Error('Unable to save without createDate');
+        }
+    }
+
     // TOPIC: Default function parameters (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Default_parameters)
     static get(id = null, resourceName = 'Resource') {
         return new Promise((resolve, reject) => {
             let resources = Resource.getCollection(resourceName);
             if (id) {
-                resolve(Resource.deserialize(resources[id]), resourceName);
+                resolve(Resource.deserialize(resources[id], resourceName));
             }
 
             // TOPIC: Arrow functions (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions)
-            resolve( Object.keys(resources).map(id => Resource.deserialize(JSON.parse(resources[id]), resourceName)) );
+            resolve( Object.keys(resources).map(id => Resource.deserialize(resources[id], resourceName)) );
         });
     }
 
