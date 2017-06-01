@@ -17,23 +17,27 @@
 
 // TOPIC: ES6 Classes (http://2ality.com/2015/02/es6-classes-final.html)
 window.Resource = class Resource {
+
+    // TOPIC: ES6 Classes (Constructors) (http://2ality.com/2015/02/es6-classes-final.html)
     constructor() {
         this._resourceName = 'Resource';
         this._id = null;
     }
 
+    // TOPIC: ES6 Classes (Getters and Setters) (http://2ality.com/2015/02/es6-classes-final.html)
     get id() {
         return this._id;
     }
-    set id(noop) {}
+    set id(noop) {} // this is a no-op function, it prevents people from setting the ID property directly
 
     get createDate() {
         return new Date(this._createDate);
     }
-    set createDate(noop) {}
+    set createDate(noop) {} // this is a no-op function, it prevents people from setting the createDate property directly
 
     save() {
         // TOPIC: Promises (https://developers.google.com/web/fundamentals/getting-started/primers/promises)
+        // TOPIC: Arrow functions (no context override) (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions)
         return new Promise((resolve, reject) => {
 
             // TOPIC: Block-scoped variable declarations (http://wesbos.com/let-vs-const/)
@@ -78,7 +82,7 @@ window.Resource = class Resource {
                 resolve(Resource.deserialize(resources[id], resourceName));
             }
 
-            // TOPIC: Arrow functions (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions)
+            // TOPIC: Arrow functions (implicit return) (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions)
             resolve( Object.keys(resources).map(id => Resource.deserialize(resources[id], resourceName)) );
         });
     }
