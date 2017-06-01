@@ -94,11 +94,10 @@ window.Resource = class Resource {
         return resources;
     }
 
-    static deserialize(dataString = 'null', resourceName = 'Resource') {
-        if (typeof(dataString) !== 'string') {
+    static deserialize(data = null, resourceName = 'Resource') {
+        if (!data) {
             return null;
         }
-        let data = JSON.parse(dataString);
         let resource = new window[resourceName]();
 
         // TOPIC: Object property assignment (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign)
@@ -110,7 +109,7 @@ window.Resource = class Resource {
     }
 
     serialize() {
-        return JSON.stringify({ id: this._id, createDate: this._createDate });
+        return { id: this._id, createDate: this._createDate };
     }
 
 }
