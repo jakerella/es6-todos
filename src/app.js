@@ -22,7 +22,7 @@ class App {
             .then(items => {
                 $('.items')[0].innerHTML = items.map(item => item.render()).join('');
             })
-            .catch(error => alert(error));
+            .catch(error => console.error(error));
     }
 
     static addTodoEvents() {
@@ -37,7 +37,7 @@ class App {
         let todo = new Todo(text, due);
         todo.save()
             .then(item => $('.items')[0].innerHTML += item.render() )
-            .catch(error => alert(error));
+            .catch(error => console.error(error));
     }
 
 }
