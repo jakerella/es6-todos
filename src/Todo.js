@@ -24,13 +24,18 @@ window.Todo = class Todo extends Resource {
         this._resourceName = 'Todo';
 
         this.text = text;
+        this.isComplete = false;
 
         let dueDateTs = (new Date(dueDate)).getTime();
         if (Number.isNaN(dueDateTs)) {
-            this.dueDate = Date.now() + 86400000; // default to tomorrow
+            this._dueDate = Date.now() + 86400000; // default to tomorrow
         } else {
-            this.dueDate = dueDateTs;
+            this._dueDate = dueDateTs;
         }
+    }
+
+    get dueDate() {
+        return new Date(this._dueDate);
     }
 
     validate() {
@@ -50,7 +55,7 @@ window.Todo = class Todo extends Resource {
     serialize() {
         let data = super.serialize();
         data.text = this.text;
-        data.dueDate = this.dueDate;
+        data._dueDate = this._dueDate;
         return data;
     }
 
