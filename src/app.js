@@ -1,5 +1,22 @@
 
+/**
+ * While looking through this file, you will see a number of single-line comments
+ * that begin with "TOPIC". These are to help you identify some of the places the
+ * new ES6 features are coming into play. Thesae comments will always include a
+ * link to a useful blog post or piece of documentation on the topic.
+ */
+
+/**
+ * The base Application for our TODOs. This would be your primary router or
+ * initializer, depending on how you want to look at it. Everything in here
+ * is `static` - an indication that it should only be used as a Singleton.
+ * You would "initialize" your application simply by creating a `new App()`
+ * You can see this at the bottom of this file (classes are NOT hoisted).
+ * 
+ * @type {App}
+ */
 class App {
+
     constructor() {
         // Initialize some shortcuts a la jQuery
         App.makeDOMShortcuts();
@@ -28,6 +45,7 @@ class App {
     static addTodoEvents() {
         // Set up creation of new todos on form submit
         $('.create-todo')[0].on('submit', App.createNewTodo);
+        $('.items')[0].on('click', App.handleItemButton);
     }
 
     static createNewTodo(evt) {
@@ -37,6 +55,36 @@ class App {
         let todo = new Todo(text, due);
         todo.save()
             .then(item => $('.items')[0].innerHTML += item.render() )
+            .catch(error => console.error(error));
+    }
+
+    static handleItemButton(evt) {
+        if (evt.target.tagName !== 'BUTTON') { return; }
+
+        const isToggle = evt.target.classList.contains('check');
+        const isDelete = evt.target.classList.contains('delete');
+
+        Todo.get(evt.target.parentNode.getAttribute('data-id'))
+            .then(item => {
+                if (isToggle) {
+                    item.isComplete = !item.isComplete;
+                    return item.save();
+                } else if (isDelete) {
+                    return item.destroy();
+                }
+            })
+            .then(item => {
+                const elem = $(`[data-id="${item.id}"]`)[0];
+                if (isDelete) {
+                    elem.parentNode.removeChild(elem);
+                } else if (isToggle) {
+                    if (elem.classList.contains('completed')) {
+                        elem.classList.remove('completed');
+                    } else {
+                        elem.classList.add('completed');
+                    }
+                }
+            })
             .catch(error => console.error(error));
     }
 
