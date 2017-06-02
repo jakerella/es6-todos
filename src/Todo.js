@@ -26,7 +26,8 @@ window.Todo = class Todo extends Resource {
         this.text = text;
         this.isComplete = false;
 
-        let dueDateTs = (new Date(dueDate)).getTime();
+        const tzOffset = (new Date()).getTimezoneOffset() * 60 * 1000;
+        let dueDateTs = (new Date(dueDate)).getTime() + tzOffset;
         if (Number.isNaN(dueDateTs)) {
             this._dueDate = Date.now() + 86400000; // default to tomorrow
         } else {
@@ -35,7 +36,9 @@ window.Todo = class Todo extends Resource {
     }
 
     get dueDate() {
-        return new Date(this._dueDate);
+        // TOPIC: Internationalization (dates) (http://es6-features.org/#DateTimeFormatting)
+        let dateFormatter = new Intl.DateTimeFormat('en-US');
+        return dateFormatter.format(new Date(this._dueDate));
     }
 
     validate() {
@@ -52,9 +55,20 @@ window.Todo = class Todo extends Resource {
         }
     }
 
+    render() {
+        // TOPIC: String templates (http://2ality.com/2015/01/es6-strings.html)
+        return `<li class='${ (this.isComplete) ? "completed" : "" }'>
+            <button class='check'></button>
+            <button class='delete'>✗</button>
+            <p>${this.text}</p>
+            <time>${this.dueDate}</time>
+        </li>`;
+    }
+
     serialize() {
         let data = super.serialize();
         data.text = this.text;
+        data.isComplete = this.isComplete;
         data._dueDate = this._dueDate;
         return data;
     }
