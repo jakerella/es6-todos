@@ -121,7 +121,7 @@ window.Resource = class Resource {
         Object.assign(resource, data);
 
         resource._id = data.id;
-        resource._createDate = resource.createDate;
+        resource._createDate = data.createDate;
         return resource;
     }
 
