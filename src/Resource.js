@@ -13,10 +13,8 @@
  *
  * @type {Resource}
  */
-
-
-// TOPIC: ES6 Classes (http://2ality.com/2015/02/es6-classes-final.html)
 window.Resource = class Resource {
+    // TOPIC: ES6 Classes (http://2ality.com/2015/02/es6-classes-final.html)
 
     // TOPIC: ES6 Classes (Constructors) (http://2ality.com/2015/02/es6-classes-final.html)
     constructor() {
@@ -96,7 +94,7 @@ window.Resource = class Resource {
             let resources = Resource.getCollection(this._resourceName);
             let resource = resources[this._id];
             if (resources[this._id]) {
-                resources[this._id] = null;
+                delete resources[this._id];
             }
             localStorage.setItem(this._resourceName, JSON.stringify(resources));
             resolve(resource);
