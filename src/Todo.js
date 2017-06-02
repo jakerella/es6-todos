@@ -69,10 +69,10 @@ window.Todo = class Todo extends Resource {
 
     render() {
         //TOPIC: Object destructuring (https://ponyfoo.com/articles/es6-destructuring-in-depth)
-        let { isComplete, text, dueDate } = this;
+        let { id, isComplete, text, dueDate } = this;
 
         // TOPIC: String templates (http://2ality.com/2015/01/es6-strings.html)
-        return `<li class='${ (isComplete) ? "completed" : "" }'>
+        return `<li class='${ (isComplete) ? "completed" : "" }' data-id='${id}'>
             <button class='check'></button>
             <button class='delete'>✗</button>
             <p>${text}</p>
