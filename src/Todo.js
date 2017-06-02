@@ -40,6 +40,18 @@ window.Todo = class Todo extends Resource {
         let dateFormatter = new Intl.DateTimeFormat('en-US');
         return dateFormatter.format(new Date(this._dueDate));
     }
+    set dueDate(value) {
+        if (typeof(value) === 'number') {
+            this._dueDate = value;
+        } else {
+            let dueDate = new Date(value);
+            if (Number.isNaN(dueDate.getTime())) {
+                throw new Error('Due date must be a valid date or timestamp.');
+            }
+            const tzOffset = (new Date()).getTimezoneOffset() * 60 * 1000;
+            this._dueDate = dueDate.getTime() + tzOffset;
+        }
+    }
 
     validate() {
         // TOPIC: ES6 Classes (Calling super methods) (http://2ality.com/2015/02/es6-classes-final.html)
@@ -56,20 +68,24 @@ window.Todo = class Todo extends Resource {
     }
 
     render() {
+        //TOPIC: Object destructuring (https://ponyfoo.com/articles/es6-destructuring-in-depth)
+        let { isComplete, text, dueDate } = this;
+
         // TOPIC: String templates (http://2ality.com/2015/01/es6-strings.html)
-        return `<li class='${ (this.isComplete) ? "completed" : "" }'>
+        return `<li class='${ (isComplete) ? "completed" : "" }'>
             <button class='check'></button>
             <button class='delete'>✗</button>
-            <p>${this.text}</p>
-            <time>${this.dueDate}</time>
+            <p>${text}</p>
+            <time>${dueDate}</time>
         </li>`;
     }
 
     serialize() {
         let data = super.serialize();
-        data.text = this.text;
-        data.isComplete = this.isComplete;
-        data._dueDate = this._dueDate;
+        //TOPIC: Object destructuring (https://ponyfoo.com/articles/es6-destructuring-in-depth)
+        let { text, isComplete, dueDate } = this;
+        // TOPIC: Object literal shorthands (http://www.benmvp.com/learning-es6-enhanced-object-literals/)
+        Object.assign( data, { text, isComplete, dueDate } );
         return data;
     }
 
