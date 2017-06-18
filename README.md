@@ -1,6 +1,6 @@
 # ES6 TODO App
 
-This is a simple TODO app written in only ES6/2015 for training purposes. You are welcome to use this repo any way you like, but note that it is _for demonstration purposes only_. I would not expect code like this to make it into production necessarily.
+This is a simple TODO app written in only core JavaScript in order to teach some of the new concepts in ES6/2015. You are welcome to use this repo any way you like, but note that it is _for training purposes only_. This code is **not production ready**.
 
 ## How to use this repo
 
@@ -10,24 +10,33 @@ Either [fork this repo](https://github.com/jakerella/es6-todos/fork) into your o
 
 ### Step 2: Start Coding!
 
-The idea here is to practice the new ES6/2015 features in JavaScript, so start writing a TODO application using those! And don't use any libraries, just core JS. This means you will probably need to use some older ES5 things that you might not have before as well. I'm talking about things like native DOM methods (instead of jQuery). The HTML and CSS is provided for you, but you are welcome to change any of it!
+The idea here is to practice the new ES6/2015 features in JavaScript, so start writing a TODO application using those! And don't use any libraries, just core JS. This means you will probably need to use some older ES5 things that you might not have used before as well. Things like native DOM methods (instead of jQuery). The HTML and CSS is provided for you in the `/src` directory, but you are welcome to change any of it!
 
-Here are some tasks if you want more specific things to implement:
+Here are some specific tasks if you need some inspiration:
 
-* Create a base `Resource` class
-  * All resources have a `id` and a `createDate`
-  * Resources can be created, retrieved, saved, and deleted
-  * Save them to `localStorage` or use an API for data storage (using `fetch()` not XHR!)
-* Create a `Todo` class which `extends` the `Resource` class
-  * Allow adding of a new Todo item (text, due date, completion switch)
+1. Create a base `Resource` [class](http://2ality.com/2015/02/es6-classes-final.html)
+  * All resources should have an `id` and `createDate` property
+  * Resources can be created, retrieved, saved, and deleted (different methods)
+    * Add a method to "serialize" the data, returning just the core properties in a plan object
+    * Save all resources to `localStorage` or use an API for data storage (using `fetch()` not XHR!)
+    * Make all persistence methods use native [promises](https://developers.google.com/web/fundamentals/getting-started/primers/promises)
+  * Write getters and setters for the `id` and `createDate` properties
+  * Use [default function parameters](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Default_parameters) for methods that need them
+  * Use [arrow functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions) for most of your callbacks.
+2. Create a `Todo` class which `extends` the `Resource` class
+  * Allow adding of a new Todo item (text, due date, and complete switch)
   * Make the due date today if not defined, and incomplete by default
-  * Allow toggling of completion status of a Todo item (update the boolean switch in the data)
-* List all TODO items on the page
-  * Be sure to localize the due date for display
+  * Override the serialization method and use `super` to access the parent
+  * Create a rendering function to display the HTML for a Todo using [template strings](http://2ality.com/2015/01/es6-strings.html)
+3. List all TODO items on the page
+  * Use the `Todo` class you created above
+  * Be sure to [localize the due date](http://es6-features.org/#DateTimeFormatting) for display
+  * Allow a user to toggle an item as complete or not (add the `completed` class to the `<li>`)
+  * Allow a user to delete an item
 
-## ES6/2015 Concepts to Use
+## ES6/2015 Concept References
 
-You very well may have built a TODO app in the past, so what's so different about this one? You should be using those cool, new ES6 features! So then you might be asking, what are those? Here are some of them, and where they might fit into this app.
+You very well may have built a TODO app in the past, so what's so different about this one? You should be using those cool, new ES6 features! So then you might be asking, what are those? Here are some references for many of them:
 
 * [Arrow functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions)
 * [Classes](http://2ality.com/2015/02/es6-classes-final.html)
@@ -50,10 +59,9 @@ While the ES6/2015 specification does include a [section for Modules](https://ww
 
 You can! Of course, some browsers are still lagging behind, so if you need to support certain browsers you should check out this [ES6 compatibility table](https://kangax.github.io/compat-table/es6/). If you want to use these features and _still need to support older browsers_, you can use a tool like [Babel](http://babeljs.io) to "transpile" your shiny, new ES6 code down to ES5.
 
-
 ## Author
 
-While I (Jordan Kasper) originally made this repo, the idea is that a developer learning new ES6/2015 features would fork this repo, then write their own solution! That said, I did write these instructions, and the `solution` branch (as an example of how I might do it).
+While I (Jordan Kasper) originally made this repo, the idea is that a developer learning new ES6/2015 features would fork this repo, then write their own solution! That said, I did write these instructions, and the [`solution` branch](https://github.com/jakerella/es6-todos/tree/solution) (as an example of how I might code this application).
 
 ## LICENSE
 
