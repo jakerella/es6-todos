@@ -71,7 +71,7 @@ window.Resource = class Resource {
         return new Promise((resolve, reject) => {
             let resources = Resource.getCollection(resourceName);
             if (id) {
-                resolve(Resource.deserialize(resources[id], resourceName));
+                return resolve(Resource.deserialize(resources[id], resourceName));
             }
 
             // TOPIC: Arrow functions (implicit return) (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions)
