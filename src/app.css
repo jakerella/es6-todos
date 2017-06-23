@@ -33,13 +33,44 @@ main {
     width: 70%;
   }
 }
+
+.primary-input {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
 .new-todo {
+  width: 75%;
   box-sizing: border-box;
-  width: 100%;
   padding: 1em 2em;
   border: none;
   border-bottom: 2px solid #eee;
   outline: none;
+  height: 3em;
+}
+
+[type='submit'] {
+  border: none;
+  cursor: pointer;
+  padding: 1em;
+  display: block;
+  width: 25%;
+  box-sizing: border-box;
+  position: relative;
+  transition: all 0.3s;
+  background: #cb4e4e;
+  color: #fff;
+  box-shadow: 0 4px #ab3c3c;
+  height: calc(3em - 4px);
+}
+[type='submit']:hover {
+  box-shadow: 0 2px #ab3c3c;
+  top: 1px;
+}
+[type='submit']:active {
+  box-shadow: 0 0 #ab3c3c;
+  top: 2px;
 }
 
 .due-date {
@@ -113,6 +144,9 @@ main {
   padding: 0;
   background: #af5c5f;
   color: #fff;
+}
+.items .delete:focus {
+    outline: none;
 }
 
 .items .completed {
