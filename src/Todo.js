@@ -21,8 +21,6 @@ window.Todo = class Todo extends Resource {
         // TOPIC: ES6 Classes (Calling super constructor) (http://2ality.com/2015/02/es6-classes-final.html)
         super();
 
-        this._resourceName = 'Todo';
-
         this.text = text;
         this.isComplete = false;
 
