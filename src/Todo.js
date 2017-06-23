@@ -52,16 +52,14 @@ window.Todo = class Todo extends Resource {
     }
 
     validate() {
-        // TOPIC: ES6 Classes (Calling super methods) (http://2ality.com/2015/02/es6-classes-final.html)
-        let error = super.validate();
-        if (error) {
-            return error;
-        }
         if (!this.text) {
             return new Error('Unable to save Todo without text');
         }
         if (!this.dueDate) {
             return new Error('Unable to save Todo without due date');
+        }
+        if (typeof(this.isComplete) !== 'boolean') {
+            return new Error('Unable to save Todo without isComplete switch');
         }
     }
 
@@ -79,11 +77,15 @@ window.Todo = class Todo extends Resource {
     }
 
     serialize() {
+        // TOPIC: ES6 Classes (Calling super methods) (http://2ality.com/2015/02/es6-classes-final.html)
         let data = super.serialize();
+
         //TOPIC: Object destructuring (https://ponyfoo.com/articles/es6-destructuring-in-depth)
         let { text, isComplete, dueDate } = this;
+
         // TOPIC: Object literal shorthands (http://www.benmvp.com/learning-es6-enhanced-object-literals/)
         Object.assign( data, { text, isComplete, dueDate } );
+
         return data;
     }
 

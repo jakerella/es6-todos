@@ -12,7 +12,7 @@
  * is `static` - an indication that it should only be used as a Singleton.
  * You would "initialize" your application simply by creating a `new App()`
  * You can see this at the bottom of this file (classes are NOT hoisted).
- * 
+ *
  * @type {App}
  */
 class App {

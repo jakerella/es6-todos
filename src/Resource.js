@@ -17,15 +17,7 @@ window.Resource = class Resource {
     // TOPIC: ES6 Classes (http://2ality.com/2015/02/es6-classes-final.html)
 
     // TOPIC: ES6 Classes (Constructors) (http://2ality.com/2015/02/es6-classes-final.html)
-    constructor() {
-        this._id = null;
-    }
-
-    // TOPIC: ES6 Classes (Getters and Setters) (http://2ality.com/2015/02/es6-classes-final.html)
-    get id() {
-        return this._id;
-    }
-    set id(noop) {} // this is a no-op function, it prevents people from setting the ID property directly
+    constructor() { }
 
     get createDate() {
         return new Date(this._createDate);
@@ -40,10 +32,10 @@ window.Resource = class Resource {
             // TOPIC: Block-scoped variable declarations (http://wesbos.com/let-vs-const/)
             let resources = Resource.getCollection(this.constructor.name);
 
-            if (!this._id) {
-                this._id = Math.floor(Math.random() * 99999999);
-                this._createDate = Date.now();
-                if (resources[this._id]) {
+            if (!this.id) {
+                this.setImmutableProps();
+
+                if (resources[this.id]) {
 
                     // TOPIC: String templates (http://2ality.com/2015/01/es6-strings.html)
                     return reject(new Error(`Oops, you are creating ${this.constructor.name}s too quickly!`));
@@ -55,20 +47,28 @@ window.Resource = class Resource {
                 return reject(error);
             }
 
-            resources[this._id] = this.serialize();
+            resources[this.id] = this.serialize();
 
             localStorage.setItem(this.constructor.name, JSON.stringify(resources));
             resolve(this);
         });
     }
 
-    validate() {
-        if (!this._id) {
-            return new Error('Unable to save without ID');
-        }
-        if (!this._createDate) {
-            return new Error('Unable to save without createDate');
-        }
+    setImmutableProps(id, createDate = Date.now()) {
+        id = (id || (Math.floor(Math.random() * 99999999)));
+
+        Object.defineProperty(this, 'id', {
+            enumerable: true,
+            configurable: false,
+            writable: false,
+            value: id
+        });
+        Object.defineProperty(this, 'createDate', {
+            enumerable: true,
+            configurable: false,
+            writable: false,
+            value: createDate
+        });
     }
 
     // TOPIC: Default function parameters (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Default_parameters)
@@ -86,14 +86,14 @@ window.Resource = class Resource {
 
     destroy() {
         return new Promise((resolve, reject) => {
-            if (!this._id) {
+            if (!this.id) {
                 return reject(new Error(`Unable to destroy a ${this.constructor.name} without an ID!`));
             }
 
             let resources = Resource.getCollection(this.constructor.name);
-            let resource = resources[this._id];
-            if (resources[this._id]) {
-                delete resources[this._id];
+            let resource = resources[this.id];
+            if (resources[this.id]) {
+                delete resources[this.id];
             }
             localStorage.setItem(this.constructor.name, JSON.stringify(resources));
             resolve(resource);
@@ -117,13 +117,12 @@ window.Resource = class Resource {
         // TOPIC: Object property assignment (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign)
         Object.assign(resource, data);
 
-        resource._id = data.id;
-        resource._createDate = data.createDate;
+        resource.setImmutableProps(data.id, data.createDate);
         return resource;
     }
 
     serialize() {
-        return { id: this._id, createDate: this._createDate };
+        return { id: this.id, createDate: this.createDate };
     }
 
 }
