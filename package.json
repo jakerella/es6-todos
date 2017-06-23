@@ -1,0 +1,13 @@
+{
+  "name": "es6-todos",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "babel src/ -d build/"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-preset-env": "^1.5.2"
+  },
+  "author": "Jordan Kasper",
+  "license": "MIT"
+}
