@@ -19,8 +19,11 @@
         </header>
 
         <main>
-            <form action='' method='post' class='create-todo'>
-                <input type='text' name='text' class='new-todo' placeholder='What needs to be done?'>
+            <form action='/create' method='post' class='create-todo'>
+                <aside class='primary-input'>
+                    <input type='text' name='text' class='new-todo' placeholder='What needs to be done?' required>
+                    <input type='submit' value='Add'>
+                </aside>
                 <aside class='due-date'>
                     <label for='due-date'>Due Date</label>
                     <input type='date' name='due' id='due-date'>
@@ -30,19 +33,19 @@
             <ul class='items'>
 
                 <!-- Example of a single Todo item -->
-                <li>
+                <!-- <li>
                     <button class='check'></button>
                     <button class='delete'>✗</button>
                     <p>TODO TEXT HERE</p>
                     <time>DUE DATE</time>
-                </li>
+                </li> -->
 
-                <li class='completed'>
+                <!-- <li class='completed'>
                     <button class='check'></button>
                     <button class='delete'>✗</button>
                     <p>COMPLETE TEXT HERE</p>
                     <time>DUE DATE</time>
-                </li>
+                </li> -->
 
             </ul>
 
