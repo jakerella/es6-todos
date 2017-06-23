@@ -59,25 +59,26 @@ class App {
     }
 
     static handleItemButton(evt) {
-        if (evt.target.tagName !== 'BUTTON') { return; }
+        if (!evt.target.matches('button')) { return true; }
 
-        const isToggle = evt.target.classList.contains('check');
-        const isDelete = evt.target.classList.contains('delete');
+        let type;
+        if (evt.target.matches('.delete')) { type = 'delete'; }
+        if (evt.target.matches('.check')) { type = 'check'; }
 
         Todo.get(evt.target.parentNode.getAttribute('data-id'))
             .then(item => {
-                if (isToggle) {
+                if (type === 'delete') {
+                    return item.destroy();
+                } else if (type === 'check') {
                     item.isComplete = !item.isComplete;
                     return item.save();
-                } else if (isDelete) {
-                    return item.destroy();
                 }
             })
             .then(item => {
-                const elem = $(`[data-id="${item.id}"]`)[0];
-                if (isDelete) {
+                const elem = document.querySelector(`[data-id="${item.id}"]`);
+                if (type === 'delete') {
                     elem.parentNode.removeChild(elem);
-                } else if (isToggle) {
+                } else if (type === 'check') {
                     if (elem.classList.contains('completed')) {
                         elem.classList.remove('completed');
                     } else {
@@ -85,7 +86,7 @@ class App {
                     }
                 }
             })
-            .catch(error => console.error(error));
+            .catch(error => console.warn(error));
     }
 
 }
