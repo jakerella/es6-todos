@@ -18,7 +18,6 @@ window.Resource = class Resource {
 
     // TOPIC: ES6 Classes (Constructors) (http://2ality.com/2015/02/es6-classes-final.html)
     constructor() {
-        this._resourceName = 'Resource';
         this._id = null;
     }
 
@@ -39,7 +38,7 @@ window.Resource = class Resource {
         return new Promise((resolve, reject) => {
 
             // TOPIC: Block-scoped variable declarations (http://wesbos.com/let-vs-const/)
-            let resources = Resource.getCollection(this._resourceName);
+            let resources = Resource.getCollection(this.constructor.name);
 
             if (!this._id) {
                 this._id = Math.floor(Math.random() * 99999999);
@@ -47,7 +46,7 @@ window.Resource = class Resource {
                 if (resources[this._id]) {
 
                     // TOPIC: String templates (http://2ality.com/2015/01/es6-strings.html)
-                    return reject(new Error(`Oops, you are creating ${this._resourceName}s too quickly!`));
+                    return reject(new Error(`Oops, you are creating ${this.constructor.name}s too quickly!`));
                 }
             }
 
@@ -58,7 +57,7 @@ window.Resource = class Resource {
 
             resources[this._id] = this.serialize();
 
-            localStorage.setItem(this._resourceName, JSON.stringify(resources));
+            localStorage.setItem(this.constructor.name, JSON.stringify(resources));
             resolve(this);
         });
     }
@@ -88,15 +87,15 @@ window.Resource = class Resource {
     destroy() {
         return new Promise((resolve, reject) => {
             if (!this._id) {
-                return reject(new Error(`Unable to destroy a ${this._resourceName} without an ID!`));
+                return reject(new Error(`Unable to destroy a ${this.constructor.name} without an ID!`));
             }
 
-            let resources = Resource.getCollection(this._resourceName);
+            let resources = Resource.getCollection(this.constructor.name);
             let resource = resources[this._id];
             if (resources[this._id]) {
                 delete resources[this._id];
             }
-            localStorage.setItem(this._resourceName, JSON.stringify(resources));
+            localStorage.setItem(this.constructor.name, JSON.stringify(resources));
             resolve(resource);
         });
     }
