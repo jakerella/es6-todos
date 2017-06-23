@@ -54,9 +54,14 @@ window.Resource = class Resource {
         return { id: this.id, createDate: this.createDate };
     }
 
-    static get(resourceName = 'Resource') {
+    static get(resourceName = 'Resource', id) {
         return new Promise((resolve, reject) => {
             let resources = Resource.getCollection(resourceName);
+
+            if (id) {
+                return resolve(Resource.deserialize(resources[id], resourceName));
+            }
+
             resolve( Object.keys(resources).map(id => Resource.deserialize(resources[id], resourceName)) );
         });
     }
@@ -69,6 +74,22 @@ window.Resource = class Resource {
 
         resource.setImmutableProps(data.id, data.createDate);
         return resource;
+    }
+
+    destroy() {
+        return new Promise((resolve, reject) => {
+            if (!this.id) {
+                return reject(new Error(`Unable to destroy a ${this.constructor.name} without an ID!`));
+            }
+
+            let resources = Resource.getCollection(this.constructor.name);
+            let resource = resources[this.id];
+            if (resources[this.id]) {
+                delete resources[this.id];
+            }
+            localStorage.setItem(this.constructor.name, JSON.stringify(resources));
+            resolve(resource);
+        });
     }
 
 }

@@ -8,6 +8,7 @@ class App {
 
     static addTodoEvents() {
         document.querySelector('.create-todo').addEventListener('submit', App.createNewTodo);
+        document.querySelector('.items').addEventListener('click', App.handleButtonClick);
     }
 
     static createNewTodo(evt) {
@@ -26,6 +27,20 @@ class App {
         Todo.get()
             .then(items => {
                 document.querySelector('.items').innerHTML = items.map(item => item.render()).join('');
+            })
+            .catch(error => console.warn(error));
+    }
+
+    static handleButtonClick(evt) {
+        if (!evt.target.matches('.delete')) { return true; }
+
+        Todo.get(evt.target.parentNode.getAttribute('data-id'))
+            .then(item => {
+                return item.destroy();
+            })
+            .then(item => {
+                const elem = document.querySelector(`[data-id="${item.id}"]`);
+                elem.parentNode.removeChild(elem);
             })
             .catch(error => console.warn(error));
     }
