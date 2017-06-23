@@ -32,15 +32,32 @@ class App {
     }
 
     static handleButtonClick(evt) {
-        if (!evt.target.matches('.delete')) { return true; }
+        if (!evt.target.matches('button')) { return true; }
+
+        let type;
+        if (evt.target.matches('.delete')) { type = 'delete'; }
+        if (evt.target.matches('.check')) { type = 'check'; }
 
         Todo.get(evt.target.parentNode.getAttribute('data-id'))
             .then(item => {
-                return item.destroy();
+                if (type === 'delete') {
+                    return item.destroy();
+                } else if (type === 'check') {
+                    item.isComplete = !item.isComplete;
+                    return item.save();
+                }
             })
             .then(item => {
                 const elem = document.querySelector(`[data-id="${item.id}"]`);
-                elem.parentNode.removeChild(elem);
+                if (type === 'delete') {
+                    elem.parentNode.removeChild(elem);
+                } else if (type === 'check') {
+                    if (elem.classList.contains('completed')) {
+                        elem.classList.remove('completed');
+                    } else {
+                        elem.classList.add('completed');
+                    }
+                }
             })
             .catch(error => console.warn(error));
     }
