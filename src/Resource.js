@@ -19,11 +19,6 @@ window.Resource = class Resource {
     // TOPIC: ES6 Classes (Constructors) (http://2ality.com/2015/02/es6-classes-final.html)
     constructor() { }
 
-    get createDate() {
-        return new Date(this._createDate);
-    }
-    set createDate(noop) {} // this is a no-op function, it prevents people from setting the createDate property directly
-
     save() {
         // TOPIC: Promises (https://developers.google.com/web/fundamentals/getting-started/primers/promises)
         // TOPIC: Arrow functions (no context override) (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions)
