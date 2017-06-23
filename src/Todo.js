@@ -1,8 +1,9 @@
 
-window.Todo = class Todo {
+window.Todo = class Todo extends Resource {
 
     constructor(text = 'task', dueDate) {
-        this.id = Date.now();
+        super();
+
         this.text = text;
         this.isComplete = false;
 
@@ -50,6 +51,14 @@ window.Todo = class Todo {
             <p>${text}</p>
             <time>${dueDate}</time>
         </li>`;
+    }
+
+    serialize() {
+        let data = super.serialize();
+        let { text, isComplete, dueDate } = this;
+        Object.assign( data, { text, isComplete, dueDate } );
+
+        return data;
     }
 
 };

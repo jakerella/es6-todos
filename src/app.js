@@ -14,7 +14,11 @@ class App {
         let text = this.querySelector('[name="text"]').value;
         let due = this.querySelector('[name="due"]').value;
         let todo = new Todo(text, due);
-        document.querySelector('.items').innerHTML += todo.render();
+        todo.save()
+            .then(item => {
+                document.querySelector('.items').innerHTML += item.render();
+            })
+            .catch(error => console.warn(error));
     }
 
 }
