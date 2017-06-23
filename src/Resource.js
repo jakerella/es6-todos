@@ -33,7 +33,7 @@ window.Resource = class Resource {
             writable: false,
             value: id
         });
-        
+
         Object.defineProperty(this, 'createDate', {
             enumerable: true,
             configurable: false,
@@ -52,6 +52,23 @@ window.Resource = class Resource {
 
     serialize() {
         return { id: this.id, createDate: this.createDate };
+    }
+
+    static get(resourceName = 'Resource') {
+        return new Promise((resolve, reject) => {
+            let resources = Resource.getCollection(resourceName);
+            resolve( Object.keys(resources).map(id => Resource.deserialize(resources[id], resourceName)) );
+        });
+    }
+
+    static deserialize(data = null, resourceName = 'Resource') {
+        if (!data) { return null; }
+
+        let resource = new window[resourceName]();
+        Object.assign(resource, data);
+
+        resource.setImmutableProps(data.id, data.createDate);
+        return resource;
     }
 
 }

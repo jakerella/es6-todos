@@ -61,4 +61,8 @@ window.Todo = class Todo extends Resource {
         return data;
     }
 
+    static get() {
+        return super.get('Todo');
+    }
+
 };

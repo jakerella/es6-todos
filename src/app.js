@@ -3,6 +3,7 @@ class App {
 
     constructor() {
         App.addTodoEvents();
+        App.getAllTodos();
     }
 
     static addTodoEvents() {
@@ -17,6 +18,14 @@ class App {
         todo.save()
             .then(item => {
                 document.querySelector('.items').innerHTML += item.render();
+            })
+            .catch(error => console.warn(error));
+    }
+
+    static getAllTodos() {
+        Todo.get()
+            .then(items => {
+                document.querySelector('.items').innerHTML = items.map(item => item.render()).join('');
             })
             .catch(error => console.warn(error));
     }
