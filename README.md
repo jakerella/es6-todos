@@ -33,6 +33,9 @@ Here are some specific tasks if you need some inspiration:
   * Be sure to [localize the due date](http://es6-features.org/#DateTimeFormatting) for display
   * Allow a user to toggle an item as complete or not (add the `completed` class to the `<li>`)
   * Allow a user to delete an item
+4. Write a static `destroyMultiple` method on the `Todo` class
+  * It should accept any number of item IDs (use the rest parameter!)
+  * It should return a single Promise, but must use the Resource `destroy()` method (you'll need `Promise.all()`)
 
 ## ES6/2015 Concept References
 
@@ -49,6 +52,7 @@ You very well may have built a TODO app in the past, so what's so different abou
 * [Object property assignment](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign) (including merging)
 * [Promises](https://developers.google.com/web/fundamentals/getting-started/primers/promises)
 * [String functions](http://2ality.com/2015/01/es6-strings.html) (Searching and templates, plus more)
+* [Rest/Spread](http://www.datchley.name/es6-rest-spread-defaults-and-destructuring/)
 
 There are more! Check out this nice [ES6 Features Overview](http://es6-features.org) site to see how to use some of them.
 
