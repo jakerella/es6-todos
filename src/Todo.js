@@ -25,7 +25,7 @@ window.Todo = class Todo extends Resource {
         this.isComplete = false;
 
         const tzOffset = (new Date()).getTimezoneOffset() * 60 * 1000;
-        let dueDateTs = (new Date(dueDate)).getTime() + tzOffset;
+        const dueDateTs = (new Date(dueDate)).getTime() + tzOffset;
         if (Number.isNaN(dueDateTs)) {
             this._dueDate = Date.now() + 86400000; // default to tomorrow
         } else {
@@ -35,14 +35,14 @@ window.Todo = class Todo extends Resource {
 
     get dueDate() {
         // TOPIC: Internationalization (dates) (http://es6-features.org/#DateTimeFormatting)
-        let dateFormatter = new Intl.DateTimeFormat('en-US');
+        const dateFormatter = new Intl.DateTimeFormat('en-US');
         return dateFormatter.format(new Date(this._dueDate));
     }
     set dueDate(value) {
         if (typeof(value) === 'number') {
             this._dueDate = value;
         } else {
-            let dueDate = new Date(value);
+            const dueDate = new Date(value);
             if (Number.isNaN(dueDate.getTime())) {
                 throw new Error('Due date must be a valid date or timestamp.');
             }
@@ -65,7 +65,7 @@ window.Todo = class Todo extends Resource {
 
     render() {
         //TOPIC: Object destructuring (https://ponyfoo.com/articles/es6-destructuring-in-depth)
-        let { id, isComplete, text, dueDate } = this;
+        const { id, isComplete, text, dueDate } = this;
 
         // TOPIC: String templates (http://2ality.com/2015/01/es6-strings.html)
         return `<li class='${ (isComplete) ? "completed" : "" }' data-id='${id}'>
@@ -78,10 +78,10 @@ window.Todo = class Todo extends Resource {
 
     serialize() {
         // TOPIC: ES6 Classes (Calling super methods) (http://2ality.com/2015/02/es6-classes-final.html)
-        let data = super.serialize();
+        const data = super.serialize();
 
         //TOPIC: Object destructuring (https://ponyfoo.com/articles/es6-destructuring-in-depth)
-        let { text, isComplete, dueDate } = this;
+        const { text, isComplete, dueDate } = this;
 
         // TOPIC: Object literal shorthands (http://www.benmvp.com/learning-es6-enhanced-object-literals/)
         Object.assign( data, { text, isComplete, dueDate } );

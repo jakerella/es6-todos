@@ -50,9 +50,9 @@ class App {
 
     static createNewTodo(evt) {
         evt.preventDefault();
-        let text = this.find('[name="text"]')[0].value;
-        let due = this.find('[name="due"]')[0].value;
-        let todo = new Todo(text, due);
+        const text = this.find('[name="text"]')[0].value;
+        const due = this.find('[name="due"]')[0].value;
+        const todo = new Todo(text, due);
         todo.save()
             .then(item => $('.items')[0].innerHTML += item.render() )
             .catch(error => console.error(error));

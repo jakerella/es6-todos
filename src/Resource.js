@@ -25,7 +25,7 @@ window.Resource = class Resource {
         return new Promise((resolve, reject) => {
 
             // TOPIC: Block-scoped variable declarations (http://wesbos.com/let-vs-const/)
-            let resources = Resource.getCollection(this.constructor.name);
+            const resources = Resource.getCollection(this.constructor.name);
 
             if (!this.id) {
                 this.setImmutableProps();
@@ -37,7 +37,7 @@ window.Resource = class Resource {
                 }
             }
 
-            let error = this.validate();
+            const error = this.validate();
             if (error) {
                 return reject(error);
             }
@@ -69,7 +69,7 @@ window.Resource = class Resource {
     // TOPIC: Default function parameters (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Default_parameters)
     static get(id = null, resourceName = 'Resource') {
         return new Promise((resolve, reject) => {
-            let resources = Resource.getCollection(resourceName);
+            const resources = Resource.getCollection(resourceName);
             if (id) {
                 return resolve(Resource.deserialize(resources[id], resourceName));
             }
@@ -85,9 +85,9 @@ window.Resource = class Resource {
                 return reject(new Error(`Unable to destroy a ${this.constructor.name} without an ID!`));
             }
 
-            let resources = Resource.getCollection(this.constructor.name);
-            let resource = resources[this.id];
-            if (resources[this.id]) {
+            const resources = Resource.getCollection(this.constructor.name);
+            const resource = resources[this.id];
+            if (resource) {
                 delete resources[this.id];
             }
             localStorage.setItem(this.constructor.name, JSON.stringify(resources));
@@ -107,7 +107,7 @@ window.Resource = class Resource {
         if (!data) {
             return null;
         }
-        let resource = new window[resourceName]();
+        const resource = new window[resourceName]();
 
         // TOPIC: Object property assignment (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign)
         Object.assign(resource, data);
