@@ -94,4 +94,20 @@ window.Todo = class Todo extends Resource {
         return super.get(id, 'Todo');
     }
 
+    // TOPIC: rest parameter (http://es6-features.org/#RestParameter)
+    static destroyMultiple(...ids) {
+        return new Promise((resolve, reject) => {
+            // TOPIC: Promises (all method, chaining) (https://developers.google.com/web/fundamentals/getting-started/primers/promises)
+            Promise.all(ids.map((id) => Todo.get(id)))
+                .then((items) => {
+                    return items.map((item) => item.destroy());
+                })
+                .then((promises) => {
+                    return Promise.all(promises);
+                })
+                .then((items) => resolve(items[0]))
+                .catch(reject);
+        });
+    }
+
 };

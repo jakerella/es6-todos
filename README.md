@@ -48,6 +48,7 @@ You very well may have built a TODO app in the past, so what's so different abou
 * [Object property assignment](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign) (including merging)
 * [Promises](https://developers.google.com/web/fundamentals/getting-started/primers/promises)
 * [String functions](http://2ality.com/2015/01/es6-strings.html) (Searching and templates, plus more)
+* [Rest/Spread](http://www.datchley.name/es6-rest-spread-defaults-and-destructuring/)
 
 There are more! Check out this nice [ES6 Features Overview](http://es6-features.org) site to see how to use some of them.
 
