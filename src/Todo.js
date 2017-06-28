@@ -26,6 +26,8 @@ window.Todo = class Todo extends Resource {
 
         const tzOffset = (new Date()).getTimezoneOffset() * 60 * 1000;
         const dueDateTs = (new Date(dueDate)).getTime() + tzOffset;
+
+        // TOPIC: Number type checking (http://es6-features.org/#NumberTypeChecking)
         if (Number.isNaN(dueDateTs)) {
             this._dueDate = Date.now() + 86400000; // default to tomorrow
         } else {
