@@ -1,11 +1,17 @@
 
-* Overview of what ES6/ES2015 is
-    * Mention future spec names (ES2016->) and philosophy
-    * So why are we still discussing ES2015? Few new things in 2016
-    * A spec does NOT mean the browser MUST implement feature, or even the same way
+* Introduction
+    * Brief history of JS/ES
+        * JS (Eich) written for Navigator 1.0; Mocha -> LiveScript -> JS (1995)
+        * "JavaScript" is trademarked by Oracle (formerly Sun); lead to JScript (IE3)
+        * ES formed later to define language to allow for cross browser parity
+        * ES3 (1999) -> ES4 (abandoned 2008) -> ES5 (2009) -> ES6 (2015)
+        * Who? Ecma International (no longer an acronym) and TC39 committee (Eich included)
+    * Overview of what ES6/ES2015 is
+        * Mention future spec names (ES2016->) and philosophy
+        * So why are we still discussing ES2015? Few new things in 2016
+        * A spec does not mean the browser MUST implement feature, or even the same way, necessarily
 
 * Make `Todo` class
-    * must place this on the `window` explicitly to use in other places!
     * Constructor
         * accept text (default string) & dueDate args
         * set id to `Date.now()` (will change later)
@@ -15,6 +21,7 @@
     * Due date getter/setter
         * getter: use `new Intl.DateTimeFormat('en-US')` and then `.format(new Date(this._dueDateTs))`
         * setter: check for number or create new Date()
+            * discuss block scoping for `let`/`const` (use the "else" for arg check maybe?)
     * Validate method
         * only return Error (allows UI to decide what to do and not crash)
     * Render method
@@ -61,6 +68,7 @@
     * implement get for collection on `Resource` (static)
         * take in resource name, but we will then override this in `Todo`
         * must write "deserialize" method to move data into actual class objects...
+            * must place `Todo` class on the `window` explicitly to dynamically access on `window`!
             * create them with `new window[resourceName]()` then use `Object.assign()` to fill with data
             * finally, add the immutable props
         * map over data from localStorage with deserialize method
@@ -99,3 +107,11 @@
     * Note that we would probably want other config and build steps!!
 * Add clean and copy steps:
     * `"build": "rm -rf build/ && babel src/ -d build/ && cp src/*.css build/ && cp src/*.html build/"`
+
+> **If time...**
+
+* Create a `destroyMultiple` method on the `Todo` class
+    * accept one or more IDs into the method (use rest parameter)
+    * use `map()` and `Promise.all()` to take array of IDs and get Todo items
+    * use the same strategy (chained) to destroy the items
+    * wrap entire method in a single promise to return the destroyed item data
