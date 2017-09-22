@@ -70,4 +70,4 @@ While I (Jordan Kasper) originally made this repo, the idea is that a developer 
 
 ## LICENSE
 
-Please read the [LICENSE](LICENSE) file, but generally this is under the MIT license (quite lenient).
+Please read the [LICENSE](LICENSE) file, but generally this is under the MIT license (quite lenient)!
