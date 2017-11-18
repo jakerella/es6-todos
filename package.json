@@ -1,0 +1,23 @@
+{
+  "name": "es6-todos",
+  "version": "1.0.0",
+  "description": "This is a simple TODO app written in only core JavaScript in order to teach some of the new concepts in ES6/2015. You are welcome to use this repo any way you like, but note that it is _for training purposes only_. This code is **not production ready**.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jakerella/es6-todos.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jakerella/es6-todos/issues"
+  },
+  "homepage": "https://github.com/jakerella/es6-todos#readme",
+  "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1"
+  }
+}

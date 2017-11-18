@@ -4,10 +4,6 @@
         <meta charset='utf-8'>
         <title>TODO List</title>
 
-        <meta name='description' content='A simple app to track TODO items'>
-        <meta name='author' content=''>
-        <meta name='viewport' content='width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no'>
-
         <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300italic,400,400italic' rel='stylesheet'>
         <link href='normalize.css' rel='stylesheet'>
         <link href='app.css' rel='stylesheet'>
@@ -20,32 +16,20 @@
 
         <main>
             <form action='/create' method='post' class='create-todo'>
+
                 <aside class='primary-input'>
                     <input type='text' name='text' class='new-todo' placeholder='What needs to be done?' required>
                     <input type='submit' value='Add'>
                 </aside>
+
                 <aside class='due-date'>
                     <label for='due-date'>Due Date</label>
                     <input type='date' name='due' id='due-date'>
                 </aside>
+
             </form>
 
             <ul class='items'>
-
-                <!-- Example of a single Todo item -->
-                <!-- <li>
-                    <button class='check'></button>
-                    <button class='delete'>✗</button>
-                    <p>TODO TEXT HERE</p>
-                    <time>DUE DATE</time>
-                </li> -->
-
-                <!-- <li class='completed'>
-                    <button class='check'></button>
-                    <button class='delete'>✗</button>
-                    <p>COMPLETE TEXT HERE</p>
-                    <time>DUE DATE</time>
-                </li> -->
 
             </ul>
 
@@ -54,8 +38,6 @@
             </footer>
         </main>
 
-        <script src='Resource.js'></script>
-        <script src='Todo.js'></script>
         <script src='app.js'></script>
 
     </body>
